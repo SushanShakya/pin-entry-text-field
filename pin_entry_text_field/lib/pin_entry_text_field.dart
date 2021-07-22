@@ -15,9 +15,11 @@ class PinEntryTextField extends StatefulWidget {
   final boxColor;
   final textColor;
   final InputDecoration decoration;
+  final TextInputType keyboardType;
 
   PinEntryTextField({
     this.lastPin,
+    this.keyboardType,
     this.fields: 4,
     this.decoration,
     this.onSubmit,
@@ -111,7 +113,7 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
       margin: EdgeInsets.only(right: 10.0),
       child: TextField(
         controller: _textControllers[i],
-        keyboardType: TextInputType.number,
+        keyboardType: widget.keyboardType,
         textAlign: TextAlign.center,
         cursorColor: widget.cursorColor,
         maxLength: 1,

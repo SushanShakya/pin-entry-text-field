@@ -11,24 +11,25 @@ class PinEntryTextField extends StatefulWidget {
   final num fontSize;
   final bool isTextObscure;
   final bool showFieldAsBox;
-  final cursorColor;  // Leaving the data type dynamic for adding Color or Material Color
+  final cursorColor; // Leaving the data type dynamic for adding Color or Material Color
   final boxColor;
   final textColor;
+  final InputDecoration decoration;
 
-  PinEntryTextField(
-      {this.lastPin,
-        this.fields: 4,
-        this.onSubmit,
-        this.fieldWidth: 40.0,
-        this.fontSize: 20.0,
-        this.isTextObscure: false,
-        this.showFieldAsBox: false,
-        this.cursorColor: Colors.blue,  // Adding a Material Color so that if the user want black, it get accepted too
-        this.boxColor: Colors.blue,
-        this.textColor: Colors.blue,
-
-      })
-      : assert(fields > 0);
+  PinEntryTextField({
+    this.lastPin,
+    this.fields: 4,
+    this.decoration,
+    this.onSubmit,
+    this.fieldWidth: 40.0,
+    this.fontSize: 20.0,
+    this.isTextObscure: false,
+    this.showFieldAsBox: false,
+    this.cursorColor: Colors
+        .blue, // Adding a Material Color so that if the user want black, it get accepted too
+    this.boxColor: Colors.blue,
+    this.textColor: Colors.blue,
+  }) : assert(fields > 0);
 
   @override
   State createState() {
@@ -122,14 +123,19 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
             fontSize: widget.fontSize),
         focusNode: _focusNodes[i],
         obscureText: widget.isTextObscure,
-        decoration: InputDecoration(
-            counterText: "",
-            enabledBorder:widget.showFieldAsBox
-                ? OutlineInputBorder(borderSide: BorderSide(width: 1.0,color: widget.boxColor))
-                : null ,
-            focusedBorder:widget.showFieldAsBox
-                ? OutlineInputBorder(borderSide: BorderSide(width: 2.0,color: widget.boxColor))
-                : null) ,
+        decoration: widget.decoration ??
+            InputDecoration(
+                counterText: "",
+                enabledBorder: widget.showFieldAsBox
+                    ? OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 1.0, color: widget.boxColor))
+                    : null,
+                focusedBorder: widget.showFieldAsBox
+                    ? OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 2.0, color: widget.boxColor))
+                    : null),
         onChanged: (String str) {
           setState(() {
             _pin[i] = str;
